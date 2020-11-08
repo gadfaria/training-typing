@@ -51,7 +51,7 @@ export default function Typing(props: Props) {
   }, [typing]);
 
   return loading ? (
-    <div>CARREGANDO CARAI</div>
+    <></>
   ) : (
     <>
       <Text>
