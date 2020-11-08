@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import React, { useEffect, useState } from "react";
-import { Root, Font } from "../../util/HelperStyles";
+import { Font } from "../../utils/HelperStyles";
 
 const Input = styled.input`
   margin-top: 15px;
@@ -19,7 +19,14 @@ const Text = styled.div`
   font-size: 25px;
 `;
 
-export default function Typing() {
+interface Props {
+  isFinish: boolean;
+  setWPM: Function;
+  handleStart: Function;
+}
+
+export default function Typing(props: Props) {
+  const { isFinish, setWPM, handleStart } = props;
   let [typing, setTyping] = useState("");
 
   let [text, setText] = useState("Muss");
@@ -38,15 +45,21 @@ export default function Typing() {
     })();
   }, []);
 
+  useEffect(() => {
+    if (typing.length === 1) handleStart();
+    setWPM(typing.split(" ").length - 1);
+  }, [typing]);
+
   return loading ? (
     <div>CARREGANDO CARAI</div>
   ) : (
-    <Root>
+    <>
       <Text>
         <mark>{typing}</mark>
         {text.substring(typing.length, text.length)}
       </Text>
       <Input
+        disabled={isFinish}
         value={typing}
         onChange={(evt: any) => {
           if (
@@ -57,6 +70,6 @@ export default function Typing() {
             setTyping(evt.target.value);
         }}
       />
-    </Root>
+    </>
   );
 }
