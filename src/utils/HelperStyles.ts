@@ -1,4 +1,4 @@
-import { css } from "@emotion/core";
+import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 
 export const FlexCenter = css`
@@ -8,5 +8,5 @@ export const FlexCenter = css`
 `;
 
 export const Font = css`
- font-family: 'Roboto Mono', monospace;
+  font-family: "Roboto Mono", monospace;
 `;
