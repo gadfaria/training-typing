@@ -2,34 +2,33 @@ import styled from "@emotion/styled";
 import { AnimatePresence, motion } from "framer-motion";
 
 const Backdrop = styled(motion.div)`
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 100%;
-  background: #000000e1;
   display: flex;
   align-items: center;
   justify-content: center;
+
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 100%;
+  background: #000000e1;
+
   overflow-y: hidden;
 `;
 
 const Content = styled(motion.div)`
-  /* width: clamp(50%, 700px, 90%); */
-  /* height: min(50%, 300px); */
-
-  width: fit-content;
-  height: fit-content;
-
-  background-color: #f6f5f5;
-
-  padding: 20px;
-
-  border-radius: 8px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+
+  width: fit-content;
+  height: fit-content;
+  padding: 20px;
+  background-color: #f6f5f5;
+
+  border-radius: 8px;
 
   > h1 {
     margin: 0;
@@ -48,21 +47,23 @@ const Content = styled(motion.div)`
   .modal_button {
     margin: 0 10px;
     padding: 5px 10px;
+    background-color: #9ca9b2;
+
+    color: #f6f5f5;
+    font-size: 1rem;
+    font-weight: 600;
 
     border: 2px solid transparent;
     border-radius: 5px;
-    font-size: 1rem;
-    font-weight: 600;
     cursor: pointer;
     transition: all 0.3s ease-in-out;
 
-    background-color: #9ca9b2;
-    color: #f6f5f5;
-
     &:hover {
       background-color: #f6f5f5;
-      border: 2px solid #9ca9b2;
+
       color: #9ca9b2;
+
+      border: 2px solid #9ca9b2;
     }
   }
 `;

@@ -5,14 +5,15 @@ import React, { useEffect, useMemo, useState } from "react";
 import Texts from "../assets/texts.json";
 
 const Text = styled.div`
-  max-width: 70vw;
+  display: flex;
+  flex-wrap: wrap;
+
+  /* max-width: 70vw; */
+  margin: 0 100px;
   height: 100%;
 
   font-weight: 300;
   font-size: 40px;
-
-  display: flex;
-  flex-wrap: wrap;
 
   overflow: hidden;
 `;
@@ -30,18 +31,15 @@ interface LetterProps {
 const Letter = styled.span<LetterProps>`
   position: relative;
 
-  text-align: center;
-
   min-width: 21px;
-
-  margin-right: 2px;
-
-  border-radius: 5px;
-
+  margin: 5px 2px 5px 0;
   background-color: ${(props) =>
     props.wasTypedWrong ? "#ff6961" : props.wasTyped ? "#d3e0ea" : "none"};
 
   color: ${(props) => (props.isCurrentLetter ? "#743600" : "#000")};
+  text-align: center;
+
+  border-radius: 5px;
 
   @keyframes blink {
     0% {
@@ -61,12 +59,13 @@ const Letter = styled.span<LetterProps>`
       ::after {
         content: "";
         position: absolute;
-
         bottom: 0;
         left: 0;
+
         width: 100%;
         height: 3px;
         background-color: #743600;
+
         animation: blink 0.75s infinite;
         animation-direction: alternate;
         animation-timing-function: ease-in-out;
@@ -136,7 +135,31 @@ export default function Typing(props: Props) {
     let index = 0;
     let totalWordsTypedWrong = 0;
     let hasError = false;
+    let currentLetterTop: number | null = null;
     function handleKeypress(evt: KeyboardEvent) {
+      // Scroll to next line
+      const currentLetterElement = document.querySelector(
+        `.letter-${index}`
+      ) as HTMLSpanElement;
+      if (currentLetterElement) {
+        if (currentLetterTop === null) {
+          currentLetterTop = currentLetterElement.offsetTop;
+        }
+
+        if (currentLetterTop !== currentLetterElement.offsetTop) {
+          currentLetterTop = currentLetterElement.offsetTop;
+          const textElement = document.querySelector(
+            ".text-to-type"
+          ) as HTMLDivElement;
+          if (textElement) {
+            textElement.scrollTo({
+              top: textElement.scrollTop + 56,
+              behavior: "smooth",
+            });
+          }
+        }
+      }
+
       const pressedKey = evt.key;
       if (pressedKey == text[index]) {
         index++;
@@ -170,11 +193,13 @@ export default function Typing(props: Props) {
   }, [text, isFinish]);
 
   return (
-    <Text>
-      {mappedText.map((mappedWord) => (
-        <Word>
+    <Text className="text-to-type">
+      {mappedText.map((mappedWord, index) => (
+        <Word key={`word-${index}`}>
           {mappedWord.map((mappedLetter) => (
             <Letter
+              key={`letter-${mappedLetter.index}`}
+              className={`letter-${mappedLetter.index}`}
               isCurrentLetter={mappedLetter.index === currentLetterIndex}
               wasTyped={mappedLetter.index < currentLetterIndex}
               wasTypedWrong={errorsIndexes.includes(mappedLetter.index)}

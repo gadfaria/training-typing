@@ -2,8 +2,6 @@ import styled from "@emotion/styled";
 import { formatTime } from "../utils/FormatTime";
 
 const Container = styled.div`
-  /* width: 50vw; */
-  /* height: 20vh; */
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
 
@@ -11,9 +9,10 @@ const Container = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 40px;
 
     width: 400px;
+
+    font-size: 40px;
   }
 `;
 

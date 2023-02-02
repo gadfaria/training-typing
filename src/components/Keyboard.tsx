@@ -2,24 +2,29 @@ import styled from "@emotion/styled";
 import { useEffect } from "react";
 
 const Base = styled.div`
-  max-width: 1085px;
-  padding: 20px;
-  margin: 20px;
-  background-color: #9ca9b2;
-  border-radius: 10px;
   display: grid;
   grid-template-columns: repeat(30, 30px);
   grid-template-rows: repeat(5, 60px);
   grid-gap: 5px;
 
+  max-width: 1085px;
+  margin: 20px;
+  padding: 20px;
+  background-color: #9ca9b2;
+
+  border-radius: 10px;
+
   .key {
-    background-color: rgb(243, 243, 243);
-    border: 2px solid black;
-    border-radius: 5px;
     grid-column: span 2;
+
+    padding-top: 17px;
+    background-color: rgb(243, 243, 243);
+
     font-size: 20px;
     text-align: center;
-    padding-top: 17px;
+
+    border: 2px solid black;
+    border-radius: 5px;
   }
 
   .press {
